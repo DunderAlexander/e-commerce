@@ -24,12 +24,7 @@ const Navbar = () => {
 
       <ul className="flex justify-between gap-[5rem] ml-20">
         <li>
-          <FontAwesomeIcon
-            icon={faUser}
-            size={"2xl"}
-            className="mr-2"
-            color="#EC8814"
-          />
+          <FontAwesomeIcon icon={faUser} size={"2xl"} className="mr-2" />
           My account
         </li>
         <li>
@@ -37,7 +32,6 @@ const Navbar = () => {
             icon={faShoppingCart}
             size={"2xl"}
             className="mr-2"
-            color="#EC8814"
           />
           My cart
         </li>
