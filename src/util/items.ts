@@ -1,5 +1,6 @@
 const items = [
   {
+    id: 0,
     name: "JBL Tune 230NC",
     type: "earbuds",
     price: 100,
@@ -7,6 +8,7 @@ const items = [
     img: "https://m.media-amazon.com/images/I/31tYZ2wrbXL._AC_SY580_.jpg",
   },
   {
+    id: 1,
     name: "Bose QuietComfort 35 II",
     type: "headphones",
     price: 350,
@@ -14,6 +16,7 @@ const items = [
     img: "https://www.tradeinn.com/f/13747/137472528_4/bose-quietcomfort-35-ii-%D0%91%D0%B5%D1%81%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5-%D0%BD%D0%B0%D1%83%D1%88%D0%BD%D0%B8%D0%BA%D0%B8.jpg",
   },
   {
+    id: 2,
     name: "Sony WH-1000XM4",
     type: "headphones",
     price: 280,
@@ -21,6 +24,7 @@ const items = [
     img: "https://img.zoommer.ge/zoommer-images/thumbs/0125531_sony-wh-1000xm4-wireless-noise-canceling-stereo-headset-black_550.png",
   },
   {
+    id: 3,
     name: "Apple AirPods Pro",
     type: "earbuds",
     price: 250,
@@ -28,6 +32,7 @@ const items = [
     img: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MME73?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1632861342000",
   },
   {
+    id: 4,
     name: "Samsung Galaxy Buds Pro",
     type: "earbuds",
     price: 200,
@@ -35,6 +40,7 @@ const items = [
     img: "https://img.zoommer.ge/zoommer-images/thumbs/0137606_samsung-sm-r190-galaxy-buds-pro-black_550.jpeg",
   },
   {
+    id: 5,
     name: "Samsung Galaxy S21 Ultra",
     type: "smartphone",
     price: 1000,
@@ -43,6 +49,7 @@ const items = [
     img: "https://img.zoommer.ge/zoommer-images/thumbs/0135158_samsung-galaxy-s21-ultra-5g-g996bd-12256gb-silver_550.png",
   },
   {
+    id: 6,
     name: "Apple MacBook Air",
     type: "laptop",
     price: 1300,
@@ -51,6 +58,7 @@ const items = [
     img: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-space-gray-select-201810?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664472289661",
   },
   {
+    id: 7,
     name: "Beats Studio3 Wireless",
     type: "headphones",
     price: 350,
