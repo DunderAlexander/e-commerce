@@ -15,7 +15,7 @@ const CartItem = ({ id, quantity }: CartItemProps) => {
       <div className="flex flex-col">
         <p className="text-lg">{item?.name}</p>
         <p className="text-sm text-gray-600">
-          x{quantity} ${item?.price}
+          x{quantity} ${item!.price * quantity}
         </p>
       </div>
     </div>
