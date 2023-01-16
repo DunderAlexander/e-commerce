@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/slices/cartSlice";
 import { setIsCartOpen } from "../redux/slices/utilitySlice";
@@ -18,8 +18,10 @@ const ItemCard: React.FC<Items> = ({ item }) => {
   const [isHovered, setIsHovered] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const cart = useSelector((state: RootState) => state.cart);
-  const clickedItem = cart.find((i) => i.id === item.id);
-
+  const clickedItem = useMemo(
+    () => cart.find((i) => i.id === item.id),
+    [cart, item.id]
+  );
   return (
     <div className={`w-64 h-full p-4 ${isHovered ? "shadow-lg" : ""}`}>
       <div
