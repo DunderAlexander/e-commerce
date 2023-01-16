@@ -4,11 +4,16 @@ import {
   faUser,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import Cart from "./Cart";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { setIsCartOpen } from "../redux/slices/utilitySlice";
 
 const Navbar = () => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const isCartOpen = useSelector(
+    (state: RootState) => state.utility.isCartOpen
+  );
+  const dispatch = useDispatch();
   return (
     <nav className="flex items-center py-4 px-12 relative">
       <div className="flex gap-20 items-center flex-1">
@@ -35,7 +40,7 @@ const Navbar = () => {
             icon={faShoppingCart}
             size={"2xl"}
             className="mr-2 cursor-pointer"
-            onClick={() => setIsCartOpen(!isCartOpen)}
+            onClick={() => dispatch(setIsCartOpen(!isCartOpen))}
           />
           My cart
         </li>

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/slices/cartSlice";
-import { AppDispatch } from "../redux/store";
+import { setIsCartOpen } from "../redux/slices/utilitySlice";
+import { AppDispatch, RootState } from "../redux/store";
 
 export type Items = {
   item: {
@@ -15,6 +16,9 @@ export type Items = {
 
 const ItemCard: React.FC<Items> = ({ item }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isCartOpen = useSelector(
+    (state: RootState) => state.utility.isCartOpen
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   return (
@@ -35,7 +39,10 @@ const ItemCard: React.FC<Items> = ({ item }) => {
           className={`p-2 text-white bg-indigo-500 rounded-full hover:bg-indigo-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
             isHovered ? "" : "hidden"
           }`}
-          onClick={() => dispatch(addToCart(item))}
+          onClick={() => {
+            dispatch(addToCart(item));
+            dispatch(setIsCartOpen(true));
+          }}
         >
           Add to cart
         </button>
