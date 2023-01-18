@@ -8,6 +8,7 @@ import Cart from "./Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { setIsCartOpen } from "../redux/slices/utilitySlice";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const isCartOpen = useSelector(
@@ -17,7 +18,9 @@ const Navbar = () => {
   return (
     <nav className="flex items-center py-4 px-12 relative">
       <div className="flex gap-20 items-center flex-1">
-        <img src="QuickCart.svg" alt="logo" />
+        <Link to={"/"}>
+          <img src="QuickCart.svg" alt="logo" />
+        </Link>
         <form className="relative w-full">
           <input
             type="text"
@@ -32,8 +35,10 @@ const Navbar = () => {
 
       <ul className="flex justify-between gap-[5rem] ml-20">
         <li>
-          <FontAwesomeIcon icon={faUser} size={"2xl"} className="mr-2" />
-          My account
+          <Link to={"account"}>
+            <FontAwesomeIcon icon={faUser} size={"2xl"} className="mr-2" />
+            My account
+          </Link>
         </li>
         <li>
           <FontAwesomeIcon

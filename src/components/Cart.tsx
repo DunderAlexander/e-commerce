@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsCartOpen } from "../redux/slices/utilitySlice";
 import { RootState } from "../redux/store";
 import CartItem from "./CartItem";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { items, cart } = useSelector((state: RootState) => state);
@@ -33,7 +34,7 @@ const Cart = () => {
           <div className="w-full flex justify-between items-center py-2">
             <h3 className="text-lg font-medium">Total: ${totalCost}</h3>
             <button className="bg-blue-500 text-white p-2 rounded-sm">
-              Proceed
+              <Link to={"/cart"}>Proceed</Link>
             </button>
           </div>
         </div>
