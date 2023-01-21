@@ -12,22 +12,28 @@ const CartPage = () => {
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const [discount, setDiscount] = useState(0);
   const [validPromo, setValidPromo] = useState(false);
+  const [invalidPromo, setInvalidPromo] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const input = e.currentTarget.promoCode;
+    if (!input.value) return;
     const enteredCode = input.value.toUpperCase();
     if (enteredCode === "BEBRA" || enteredCode === "LINUSHEK") {
       setDiscount(0.2);
       setValidPromo(true);
+      setInvalidPromo(false);
     } else {
       setDiscount(0);
       setValidPromo(false);
+      setInvalidPromo(true);
     }
     input.value = "";
   };
 
   const discountedTotal = (1 - discount) * totalCost;
+  const discountPercent = `-${(discount * 100).toFixed(0)}%`;
+
   return (
     <div className="py-4">
       <h1 className="px-12 font-bold text-xl">
@@ -62,13 +68,18 @@ const CartPage = () => {
                 Promocode Applied!
               </p>
             )}
+            {invalidPromo && (
+              <p className="text-red-500 absolute translate-y-6">
+                Promocode is not valid or expired.
+              </p>
+            )}
           </div>
           <div className="w-full grid grid-cols-2 gap-y-4 my-4 py-4 ">
             <h3 className="text-xl font-medium ">Total:</h3>
             <h3 className="text-xl text-right">${discountedTotal}</h3>
             {discount !== 0 && (
               <p className="text-green-500 text-right absolute translate-y-6">
-                -20%
+                {discountPercent}
               </p>
             )}
             <h3 className="text-xl font-medium ">Items:</h3>
