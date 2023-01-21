@@ -8,10 +8,14 @@ const CartPage = () => {
     const item = items.find((i) => i.id === curr.id);
     return acc + item!.price * curr.quantity;
   }, 0);
+  const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   return (
     <div className="py-4">
       <h1 className="px-12 font-bold text-xl">
-        Cart <span className="text-sm translate-x-1 absolute">2</span>
+        Cart{" "}
+        <span className="text-sm translate-x-1 absolute">
+          {cart.length !== 0 && totalQuantity}
+        </span>
       </h1>
 
       {cart.length === 0 ? (
@@ -25,9 +29,11 @@ const CartPage = () => {
               <CartItem key={cartItem.id} showCategory={true} {...cartItem} />
             </div>
           ))}
-          <div className="w-full flex justify-between items-center my-4 py-4 border-solid px-12">
+          <div className="w-full grid grid-cols-2 gap-y-4 my-4 py-4 px-12">
             <h3 className="text-xl font-medium ">Total:</h3>
-            <h3 className="text-xl font-medium">${totalCost}</h3>
+            <h3 className="text-xl text-right">${totalCost}</h3>
+            <h3 className="text-xl font-medium ">Items:</h3>
+            <h3 className="text-xl text-right">{totalQuantity}</h3>
           </div>
         </div>
       )}
