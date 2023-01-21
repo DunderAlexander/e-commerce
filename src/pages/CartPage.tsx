@@ -9,23 +9,25 @@ const CartPage = () => {
     return acc + item!.price * curr.quantity;
   }, 0);
   return (
-    <div className="bg-gray-200">
-      <div className="px-4 py-2">
-        <h2 className="text-3xl font-medium text-center pt-4">My Cart</h2>
-      </div>
+    <div className="py-4">
+      <h1 className="px-12 font-bold text-xl">
+        Cart <span className="text-sm translate-x-1 absolute">2</span>
+      </h1>
+
       {cart.length === 0 ? (
         <h3 className="text-center text-xl font-medium text-gray-500 pb-4">
           Your cart is empty.
         </h3>
       ) : (
-        <div className="px-4 py-2">
+        <div className="py-2">
           {cart.map((cartItem) => (
-            <div className="bg-white rounded-md my-2 p-2">
+            <div className="bg-white rounded-md my-2 p-2 px-12">
               <CartItem key={cartItem.id} showCategory={true} {...cartItem} />
             </div>
           ))}
-          <div className="w-full flex justify-between items-center py-2">
-            <h3 className="text-xl font-medium">Total: ${totalCost}</h3>
+          <div className="w-full flex justify-between items-center my-4 py-4 border-solid px-12">
+            <h3 className="text-xl font-medium ">Total:</h3>
+            <h3 className="text-xl font-medium">${totalCost}</h3>
           </div>
         </div>
       )}

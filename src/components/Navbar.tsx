@@ -16,7 +16,7 @@ const Navbar = () => {
   );
   const dispatch = useDispatch();
   return (
-    <nav className="flex items-center py-4 px-12 relative">
+    <nav className="flex items-center py-4 px-12 relative shadow-md">
       <div className="flex gap-20 items-center flex-1">
         <Link to={"/"}>
           <img src="QuickCart.svg" alt="logo" />
