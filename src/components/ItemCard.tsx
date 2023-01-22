@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { addToCart } from "../redux/slices/cartSlice";
 import { setIsCartOpen } from "../redux/slices/utilitySlice";
 import { AppDispatch, RootState } from "../redux/store";
@@ -51,7 +52,12 @@ const ItemCard: React.FC<Items> = ({ item }) => {
           {clickedItem ? "Added to cart!" : "Add to cart"}
         </button>
       </div>
-      <h4 className="text-lg font-medium mt-2">{item.name}</h4>
+      <Link to={`/items/${item.id}`} className="w-fit block">
+        <h4 className="text-lg font-medium mt-2 w-fit hover:text-indigo-600">
+          {item.name}
+        </h4>
+      </Link>
+
       <p className="text-sm text-gray-600 capitalize">{item.type}</p>
       <p className="text-sm font-medium">${item.price}</p>
     </div>

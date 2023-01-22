@@ -33,9 +33,11 @@ const Cart = () => {
           </ul>
           <div className="w-full flex justify-between items-center py-2">
             <h3 className="text-lg font-medium">Total: ${totalCost}</h3>
-            <button className="bg-blue-500 text-white p-2 rounded-sm">
-              <Link to={"/cart"}>Proceed</Link>
-            </button>
+            <Link to={"/cart"}>
+              <button className="bg-blue-500 text-white p-2 rounded-sm">
+                Proceed
+              </button>
+            </Link>
           </div>
         </div>
       )}

@@ -23,7 +23,7 @@ function App() {
         />
         <Route path="cart" element={<CartPage />} />
         <Route path="account" element={<Account />} />
-        <Route path="/items/:item" element={<ItemDetails />} />
+        <Route path="/items/:id" element={<ItemDetails />} />
       </Routes>
     </>
   );
