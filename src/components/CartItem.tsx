@@ -20,7 +20,10 @@ const CartItem = ({ id, quantity, showCategory }: CartItemProps) => {
           <img
             src={item?.img}
             alt={item?.name}
-            className={`w-${showCategory ? 20 : 8} rounded-sm mr-2`}
+            // className={`w-${showCategory ? 20 : 8} rounded-sm mr-2`} why is it buggy?
+            className={
+              showCategory ? "w-20 rounded-sm mr-2" : "w-8 rounded-sm mr-2"
+            }
           />
           <div className="flex flex-col gap-1">
             <p className="text-lg">{item?.name}</p>
