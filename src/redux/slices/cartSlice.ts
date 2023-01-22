@@ -4,8 +4,8 @@ interface CartItem {
   id: number;
   quantity: number;
 }
-
-const initialState: CartItem[] = [];
+const cartStorage = localStorage.getItem("cart");
+const initialState: CartItem[] = cartStorage ? JSON.parse(cartStorage) : [];
 
 const cartSlice = createSlice({
   name: "cart",
@@ -23,10 +23,15 @@ const cartSlice = createSlice({
           }
         });
       }
+      localStorage.setItem("cart", JSON.stringify(state));
     },
     removeFromCart: (state, action) => {
       if (state.find((item) => item.id === action.payload.id)?.quantity === 1) {
-        return state.filter((item) => item.id !== action.payload.id);
+        const filteredCart = state.filter(
+          (item) => item.id !== action.payload.id
+        );
+        localStorage.setItem("cart", JSON.stringify(filteredCart));
+        return filteredCart;
       } else {
         state.map((item) => {
           if (item.id === action.payload.id) {
@@ -36,6 +41,7 @@ const cartSlice = createSlice({
           }
         });
       }
+      localStorage.setItem("cart", JSON.stringify(state));
     },
   },
 });
