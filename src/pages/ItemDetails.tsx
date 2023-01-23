@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { addToCart } from "../redux/slices/cartSlice";
+import { useMemo } from "react";
 
 const ItemDetails = () => {
   const { id } = useParams();
@@ -15,6 +16,10 @@ const ItemDetails = () => {
   if (!selectedItem) {
     return <h3 className="text-xl font-medium text-center">Item not found</h3>;
   }
+  const clickedItem = useMemo(
+    () => cart.find((i) => i.id === selectedItem.id),
+    [cart, selectedItem.id]
+  );
 
   return (
     <div className="grid grid-cols-2 gap-4 p-4">
@@ -28,12 +33,15 @@ const ItemDetails = () => {
         <p className="text-gray-600">{selectedItem.description}</p>
         <h3 className="text-xl font-medium">${selectedItem.price}</h3>
         <button
-          className="bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-lg"
+          className={`bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-lg ${
+            clickedItem && "opacity-50 cursor-not-allowed hover:bg-indigo-500"
+          }`}
           onClick={() => {
             dispatch(addToCart(selectedItem));
           }}
+          disabled={!!clickedItem}
         >
-          Add to Cart
+          {clickedItem ? "Added to cart!" : "Add to cart"}
         </button>
       </div>
     </div>
