@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { addToCart } from "../redux/slices/cartSlice";
 
 const ItemDetails = () => {
   const { id } = useParams();
@@ -8,6 +9,8 @@ const ItemDetails = () => {
   const selectedItem = useSelector((state: RootState) =>
     state.items.find((i) => i.id === itemId)
   );
+  const cart = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
 
   if (!selectedItem) {
     return <h3 className="text-xl font-medium text-center">Item not found</h3>;
@@ -24,7 +27,12 @@ const ItemDetails = () => {
         <h1 className="text-3xl font-medium">{selectedItem.name}</h1>
         <p className="text-gray-600">{selectedItem.description}</p>
         <h3 className="text-xl font-medium">${selectedItem.price}</h3>
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-lg">
+        <button
+          className="bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-lg"
+          onClick={() => {
+            dispatch(addToCart(selectedItem));
+          }}
+        >
           Add to Cart
         </button>
       </div>
