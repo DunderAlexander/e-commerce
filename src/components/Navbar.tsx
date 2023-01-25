@@ -7,13 +7,15 @@ import {
 import Cart from "./Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { setIsCartOpen } from "../redux/slices/utilitySlice";
+import { setIsCartOpen, setIsUserOpen } from "../redux/slices/utilitySlice";
 import { Link } from "react-router-dom";
+import User from "./User";
 
 const Navbar = () => {
-  const isCartOpen = useSelector(
-    (state: RootState) => state.utility.isCartOpen
+  const { isCartOpen, isUserOpen } = useSelector(
+    (state: RootState) => state.utility
   );
+
   const cart = useSelector((state: RootState) => state.cart);
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const dispatch = useDispatch();
@@ -37,17 +39,26 @@ const Navbar = () => {
 
       <ul className="flex justify-between gap-[5rem] ml-20">
         <li>
-          <Link to={"account"}>
-            <FontAwesomeIcon icon={faUser} size={"2xl"} className="mr-2" />
-            My account
-          </Link>
+          <FontAwesomeIcon
+            icon={faUser}
+            size={"2xl"}
+            className="mr-2 cursor-pointer"
+            onClick={() => {
+              dispatch(setIsUserOpen(!isUserOpen));
+              dispatch(setIsCartOpen(false));
+            }}
+          />
+          My account
         </li>
         <li>
           <FontAwesomeIcon
             icon={faShoppingCart}
             size={"2xl"}
             className="mr-2 cursor-pointer"
-            onClick={() => dispatch(setIsCartOpen(!isCartOpen))}
+            onClick={() => {
+              dispatch(setIsCartOpen(!isCartOpen));
+              dispatch(setIsUserOpen(false));
+            }}
           />
           {totalQuantity !== 0 && (
             <div className="absolute bg-rose-700 p-1 w-6 h-6 rounded-full text-center text-xs text-white translate-x-4 -translate-y-4 ">
@@ -58,6 +69,7 @@ const Navbar = () => {
         </li>
       </ul>
       {isCartOpen && <Cart />}
+      {isUserOpen && <User />}
     </nav>
   );
 };
