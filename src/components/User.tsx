@@ -1,22 +1,29 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../api/firebase";
+import {
+  setEmail,
+  setError,
+  setPassword,
+  setUser,
+} from "../redux/slices/userAccountSlice";
+import { RootState } from "../redux/store";
 
 const User = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState<any>(null);
-  const [error, setError] = useState<any>(null);
+  const { email, password, user, error } = useSelector(
+    (state: RootState) => state.userAccount
+  );
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        setUser(user);
+        dispatch(setUser(user));
       })
       .catch((error) => {
-        setError(error);
+        dispatch(setError(error));
       });
   };
   if (user) {
@@ -36,7 +43,7 @@ const User = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => {
-            setEmail(e.target.value);
+            dispatch(setEmail(e.target.value));
           }}
         />
         <input
@@ -44,7 +51,7 @@ const User = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => {
-            setPassword(e.target.value);
+            dispatch(setPassword(e.target.value));
           }}
         />
         <button type="submit">Sign in</button>
