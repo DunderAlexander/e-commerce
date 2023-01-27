@@ -7,7 +7,7 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const apiKey = import.meta.env.VITE_API_KEY;
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: apiKey,
   authDomain: "e-commerce-a369e.firebaseapp.com",
   projectId: "e-commerce-a369e",
@@ -20,3 +20,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+
+export default app;

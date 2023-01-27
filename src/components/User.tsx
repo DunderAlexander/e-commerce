@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { auth } from "../api/firebase";
+import { auth } from "../firebase/config";
 import {
   setEmail,
   setError,
