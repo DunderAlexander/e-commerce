@@ -10,6 +10,10 @@ import { RootState } from "../redux/store";
 import { setIsCartOpen, setIsUserOpen } from "../redux/slices/utilitySlice";
 import { Link } from "react-router-dom";
 import User from "./User";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/config";
+import { setUser } from "../redux/slices/userAccountSlice";
 
 const Navbar = () => {
   const { isCartOpen, isUserOpen } = useSelector(
@@ -19,6 +23,15 @@ const Navbar = () => {
   const cart = useSelector((state: RootState) => state.cart);
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const dispatch = useDispatch();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setUser({ userName: user.displayName, uid: user.uid }));
+      } else {
+        dispatch(setUser(null));
+      }
+    });
+  }, []);
   return (
     <nav className="flex items-center py-4 px-12 relative shadow-md">
       <div className="flex gap-20 items-center flex-1">
