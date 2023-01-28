@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Action } from "@remix-run/router";
 
 interface CartItem {
   id: number;
   quantity: number;
 }
-// const cartStorage = localStorage.getItem("cart");
-// const initialState: CartItem[] = cartStorage ? JSON.parse(cartStorage) : [];
 const initialState: CartItem[] = [];
 
 const cartSlice = createSlice({
@@ -51,7 +48,7 @@ const cartSlice = createSlice({
       localStorage.setItem(`cart_${action.payload.uid}`, JSON.stringify(state));
     },
     getCart: (state, action) => {
-      state = action.payload;
+      state.push(...action.payload);
     },
   },
 });

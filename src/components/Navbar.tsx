@@ -51,6 +51,14 @@ const Navbar = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const cartStorage = localStorage.getItem(`cart_${uid}`);
+    if (cartStorage) {
+      dispatch(getCart(JSON.parse(cartStorage)));
+      console.log(JSON.parse(cartStorage));
+    }
+  }, [uid]);
+
   return (
     <nav className="flex items-center py-4 px-12 relative shadow-md">
       <div className="flex gap-20 items-center flex-1">
