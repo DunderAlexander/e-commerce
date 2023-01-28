@@ -26,8 +26,7 @@ const User = () => {
     return (
       <div className="fixed top-20 right-36 w-64 h-64 bg-slate-100 rounded-lg p-4 pb-8 z-10">
         <h1>
-          Welcome,{" "}
-          <b className="text-xs">{user.userName ? user.userName : user.uid}</b>
+          Welcome, <b className="text-xs">{user.displayName}</b>
         </h1>
         <button
           className="bg-blue-600 p-2 rounded-lg text-white text-xs"

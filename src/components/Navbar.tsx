@@ -23,13 +23,23 @@ const Navbar = () => {
   const cart = useSelector((state: RootState) => state.cart);
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const dispatch = useDispatch();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        let displayName = user.displayName;
+        if (!displayName) {
+          let email = user.email;
+          if (email) {
+            let name = email.split("@")[0];
+            name = name[0].toUpperCase() + name.slice(1);
+            displayName = name;
+          }
+        }
         dispatch(
           setUser({
             email: user.email,
-            userName: user.displayName,
+            displayName: displayName,
             uid: user.uid,
           })
         );
@@ -38,6 +48,7 @@ const Navbar = () => {
       }
     });
   }, []);
+
   return (
     <nav className="flex items-center py-4 px-12 relative shadow-md">
       <div className="flex gap-20 items-center flex-1">

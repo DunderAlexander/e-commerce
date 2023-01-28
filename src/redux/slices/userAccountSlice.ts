@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface userType {
   email: string;
-  userName: string;
+  displayName: string;
   uid: string;
 }
 interface userAccountType {
