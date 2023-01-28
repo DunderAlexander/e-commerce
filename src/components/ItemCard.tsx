@@ -24,7 +24,7 @@ const ItemCard: React.FC<Items> = ({ item }) => {
     [cart, item.id]
   );
   return (
-    <div className={`w-64 h-full p-4 ${isHovered ? "shadow-lg" : ""}`}>
+    <article className={`w-64 h-full p-4 ${isHovered ? "shadow-lg" : ""}`}>
       <div
         className="relative"
         onMouseEnter={() => setIsHovered(true)}
@@ -60,7 +60,7 @@ const ItemCard: React.FC<Items> = ({ item }) => {
 
       <p className="text-sm text-gray-600 capitalize">{item.type}</p>
       <p className="text-sm font-medium">${item.price}</p>
-    </div>
+    </article>
   );
 };
 

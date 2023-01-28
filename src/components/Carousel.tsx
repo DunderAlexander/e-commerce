@@ -19,7 +19,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="w-[70%] mx-auto mb-16 mt-10">
+    <section className="w-[70%] mx-auto mb-16 mt-10">
       <Slider {...settings}>
         <div>
           <img
@@ -36,7 +36,7 @@ const Carousel = () => {
           />
         </div>
       </Slider>
-    </div>
+    </section>
   );
 };
 
