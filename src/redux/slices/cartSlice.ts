@@ -48,6 +48,7 @@ const cartSlice = createSlice({
       localStorage.setItem(`cart_${action.payload.uid}`, JSON.stringify(state));
     },
     getCart: (state, action) => {
+      state.length = 0;
       state.push(...action.payload);
     },
   },

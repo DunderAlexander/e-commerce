@@ -56,6 +56,8 @@ const Navbar = () => {
     if (cartStorage) {
       dispatch(getCart(JSON.parse(cartStorage)));
       console.log(JSON.parse(cartStorage));
+    } else {
+      dispatch(getCart([]));
     }
   }, [uid]);
 
