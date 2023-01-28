@@ -9,9 +9,11 @@ type CartItemProps = {
 };
 
 const CartItem = ({ id, quantity, showCategory }: CartItemProps) => {
+  const uid = useSelector((state: RootState) => state.userAccount.user?.uid);
   const storageItems = useSelector((state: RootState) => state.items);
   const dispatch = useDispatch<AppDispatch>();
   const item = storageItems.find((i) => i.id === id);
+
   return (
     <>
       {showCategory && <hr />}
@@ -38,14 +40,14 @@ const CartItem = ({ id, quantity, showCategory }: CartItemProps) => {
         <div className="flex justify-center items-center gap-2">
           <button
             className="bg-blue-500 text-white p-2 w-10 rounded-md"
-            onClick={() => dispatch(addToCart(item))}
+            onClick={() => dispatch(addToCart({ item, uid }))}
           >
             +
           </button>
           {quantity}
           <button
             className="bg-blue-500 text-white p-2 w-10 rounded-md"
-            onClick={() => dispatch(removeFromCart(item))}
+            onClick={() => dispatch(removeFromCart({ item, uid }))}
           >
             -
           </button>

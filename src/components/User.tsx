@@ -1,4 +1,9 @@
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../firebase/config";
@@ -20,6 +25,10 @@ const User = () => {
       .catch((error) => {
         dispatch(setError(error.code));
       });
+  };
+  const handleSignInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
   };
 
   if (user) {
@@ -58,6 +67,12 @@ const User = () => {
         />
         <button type="submit">Sign in</button>
       </form>
+      <button
+        className="bg-red-600 text-white p-2 rounded-lg"
+        onClick={() => handleSignInWithGoogle()}
+      >
+        Sign in with Google
+      </button>
       {error && (
         <div>
           <p className="text-red-600 font-medium">Wrong password or email.</p>

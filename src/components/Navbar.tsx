@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { setUser } from "../redux/slices/userAccountSlice";
+import { getCart } from "../redux/slices/cartSlice";
 
 const Navbar = () => {
   const { isCartOpen, isUserOpen } = useSelector(
@@ -23,6 +24,7 @@ const Navbar = () => {
   const cart = useSelector((state: RootState) => state.cart);
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const dispatch = useDispatch();
+  const uid = useSelector((state: RootState) => state.userAccount.user?.uid);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {

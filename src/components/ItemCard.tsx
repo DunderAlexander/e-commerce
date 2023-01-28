@@ -23,6 +23,7 @@ const ItemCard: React.FC<Items> = ({ item }) => {
     () => cart.find((i) => i.id === item.id),
     [cart, item.id]
   );
+  const uid = useSelector((state: RootState) => state.userAccount.user?.uid);
   return (
     <article className={`w-64 h-full p-4 ${isHovered ? "shadow-lg" : ""}`}>
       <div
@@ -44,7 +45,7 @@ const ItemCard: React.FC<Items> = ({ item }) => {
             clickedItem && "opacity-50 cursor-not-allowed hover:bg-indigo-500"
           }`}
           onClick={() => {
-            dispatch(addToCart(item));
+            dispatch(addToCart({ item, uid }));
             dispatch(setIsCartOpen(true));
           }}
           disabled={!!clickedItem}
