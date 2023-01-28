@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../firebase/config";
-import { setError, setUser } from "../redux/slices/userAccountSlice";
+import { setError } from "../redux/slices/userAccountSlice";
 import { RootState } from "../redux/store";
 
 const User = () => {
@@ -13,9 +13,13 @@ const User = () => {
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password).catch((error) => {
-      dispatch(setError(error.code));
-    });
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        dispatch(setError(null));
+      })
+      .catch((error) => {
+        dispatch(setError(error.code));
+      });
   };
 
   if (user) {

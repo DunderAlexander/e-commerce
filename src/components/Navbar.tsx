@@ -26,7 +26,13 @@ const Navbar = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(setUser({ userName: user.displayName, uid: user.uid }));
+        dispatch(
+          setUser({
+            email: user.email,
+            userName: user.displayName,
+            uid: user.uid,
+          })
+        );
       } else {
         dispatch(setUser(null));
       }
