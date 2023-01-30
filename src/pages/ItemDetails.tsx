@@ -11,6 +11,7 @@ const ItemDetails = () => {
     state.items.find((i) => i.id === itemId)
   );
   const cart = useSelector((state: RootState) => state.cart);
+  const uid = useSelector((state: RootState) => state.userAccount.user?.uid);
   const dispatch = useDispatch();
 
   if (!selectedItem) {
@@ -37,7 +38,7 @@ const ItemDetails = () => {
             clickedItem && "opacity-50 cursor-not-allowed hover:bg-indigo-500"
           }`}
           onClick={() => {
-            dispatch(addToCart(selectedItem));
+            dispatch(addToCart({ selectedItem, uid }));
           }}
           disabled={!!clickedItem}
         >

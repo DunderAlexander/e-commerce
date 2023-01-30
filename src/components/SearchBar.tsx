@@ -5,6 +5,7 @@ import SearchBarPopUp from "./SearchBarPopUp";
 
 const SearchBar = () => {
   const [searchPopUpOpened, setSearchPopUpOpened] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div
@@ -16,7 +17,7 @@ const SearchBar = () => {
         setSearchPopUpOpened(false);
       }}
     >
-      {searchPopUpOpened && <SearchBarPopUp />}
+      {searchPopUpOpened && <SearchBarPopUp searchQuery={searchQuery} />}
       <form
         className="relative w-full"
         onSubmit={(e) => {
@@ -27,8 +28,18 @@ const SearchBar = () => {
           type="text"
           placeholder="Search for products..."
           className="border-2 rounded-xl p-2 w-full"
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+          }}
         />
-        <button type="submit" className="absolute top-[10px] right-3">
+        <button
+          type="submit"
+          className="absolute top-[10px] right-3"
+          onClick={() => {
+            setSearchPopUpOpened(false);
+          }}
+        >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
       </form>
