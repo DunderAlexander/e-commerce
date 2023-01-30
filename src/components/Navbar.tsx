@@ -1,22 +1,17 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faShoppingCart,
-  faUser,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
 import Cart from "./Cart";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { setIsCartOpen, setIsUserOpen } from "../redux/slices/utilitySlice";
-import { Link } from "react-router-dom";
 import User from "./User";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/config";
+import SearchBar from "./SearchBar";
+import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { RootState } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsCartOpen, setIsUserOpen } from "../redux/slices/utilitySlice";
 import { setUser } from "../redux/slices/userAccountSlice";
 import { getCart } from "../redux/slices/cartSlice";
-import SearchBarPopUp from "./SearchBarPopUp";
-import SearchBar from "./SearchBar";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/config";
 
 const Navbar = () => {
   const { isCartOpen, isUserOpen } = useSelector(
