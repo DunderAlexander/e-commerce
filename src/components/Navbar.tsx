@@ -10,11 +10,12 @@ import { RootState } from "../redux/store";
 import { setIsCartOpen, setIsUserOpen } from "../redux/slices/utilitySlice";
 import { Link } from "react-router-dom";
 import User from "./User";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { setUser } from "../redux/slices/userAccountSlice";
 import { getCart } from "../redux/slices/cartSlice";
+import SearchBarPopUp from "./SearchBarPopUp";
 
 const Navbar = () => {
   const { isCartOpen, isUserOpen } = useSelector(
@@ -25,6 +26,8 @@ const Navbar = () => {
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const dispatch = useDispatch();
   const uid = useSelector((state: RootState) => state.userAccount.user?.uid);
+
+  const [searchPopUpOpened, setSearchPopUpOpened] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -55,7 +58,6 @@ const Navbar = () => {
     const cartStorage = localStorage.getItem(`cart_${uid}`);
     if (cartStorage) {
       dispatch(getCart(JSON.parse(cartStorage)));
-      console.log(JSON.parse(cartStorage));
     } else {
       dispatch(getCart([]));
     }
@@ -67,16 +69,32 @@ const Navbar = () => {
         <Link to={"/"}>
           <img src="QuickCart.svg" alt="logo" />
         </Link>
-        <form className="relative w-full">
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="border-2 rounded-xl p-2 w-full"
-          />
-          <button type="submit" className="absolute top-[10px] right-3">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
-        </form>
+        <div
+          className="w-full relative"
+          onFocus={() => {
+            setSearchPopUpOpened(true);
+          }}
+          onBlur={() => {
+            setSearchPopUpOpened(false);
+          }}
+        >
+          {searchPopUpOpened && <SearchBarPopUp />}
+          <form
+            className="relative w-full"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Search for products..."
+              className="border-2 rounded-xl p-2 w-full"
+            />
+            <button type="submit" className="absolute top-[10px] right-3">
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </button>
+          </form>
+        </div>
       </div>
 
       <ul className="flex justify-between gap-[5rem] ml-20">
