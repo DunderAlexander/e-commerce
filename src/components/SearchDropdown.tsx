@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../redux/store";
 
-const SearchBarPopUp = ({ searchQuery }: any) => {
+const SearchDropdown = ({ searchQuery }: any) => {
   const items = useSelector((state: RootState) => state.items);
   const filteredItems = searchQuery
     ? items.filter((item) =>
@@ -34,4 +34,4 @@ const SearchBarPopUp = ({ searchQuery }: any) => {
   );
 };
 
-export default SearchBarPopUp;
+export default SearchDropdown;

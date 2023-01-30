@@ -1,7 +1,7 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import SearchBarPopUp from "./SearchBarPopUp";
+import SearchDropdown from "./SearchDropdown";
 
 const SearchBar = () => {
   const [searchPopUpOpened, setSearchPopUpOpened] = useState(false);
@@ -17,7 +17,7 @@ const SearchBar = () => {
         setSearchPopUpOpened(false);
       }}
     >
-      {searchPopUpOpened && <SearchBarPopUp searchQuery={searchQuery} />}
+      {searchPopUpOpened && <SearchDropdown searchQuery={searchQuery} />}
       <form
         className="relative w-full"
         onSubmit={(e) => {
