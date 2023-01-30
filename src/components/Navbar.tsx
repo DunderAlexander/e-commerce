@@ -16,6 +16,7 @@ import { auth } from "../firebase/config";
 import { setUser } from "../redux/slices/userAccountSlice";
 import { getCart } from "../redux/slices/cartSlice";
 import SearchBarPopUp from "./SearchBarPopUp";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const { isCartOpen, isUserOpen } = useSelector(
@@ -26,8 +27,6 @@ const Navbar = () => {
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const dispatch = useDispatch();
   const uid = useSelector((state: RootState) => state.userAccount.user?.uid);
-
-  const [searchPopUpOpened, setSearchPopUpOpened] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -69,32 +68,7 @@ const Navbar = () => {
         <Link to={"/"}>
           <img src="QuickCart.svg" alt="logo" />
         </Link>
-        <div
-          className="w-full relative"
-          onFocus={() => {
-            setSearchPopUpOpened(true);
-          }}
-          onBlur={() => {
-            setSearchPopUpOpened(false);
-          }}
-        >
-          {searchPopUpOpened && <SearchBarPopUp />}
-          <form
-            className="relative w-full"
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <input
-              type="text"
-              placeholder="Search for products..."
-              className="border-2 rounded-xl p-2 w-full"
-            />
-            <button type="submit" className="absolute top-[10px] right-3">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
-          </form>
-        </div>
+        <SearchBar />
       </div>
 
       <ul className="flex justify-between gap-[5rem] ml-20">
