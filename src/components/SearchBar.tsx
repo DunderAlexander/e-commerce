@@ -1,23 +1,30 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SearchDropdown from "./SearchDropdown";
 
 const SearchBar = () => {
-  const [searchPopUpOpened, setSearchPopUpOpened] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [searchDropdownOpened, setSearchDropdownOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div
+      ref={containerRef}
       className="w-full relative"
       onFocus={() => {
-        setSearchPopUpOpened(true);
+        setSearchDropdownOpened(true);
       }}
-      onBlur={() => {
-        setSearchPopUpOpened(false);
+      onBlur={(e) => {
+        if (
+          containerRef.current &&
+          !containerRef.current.contains(e.relatedTarget)
+        ) {
+          setSearchDropdownOpened(false);
+        }
       }}
     >
-      {searchPopUpOpened && <SearchDropdown searchQuery={searchQuery} />}
+      {searchDropdownOpened && <SearchDropdown searchQuery={searchQuery} />}
       <form
         className="relative w-full"
         onSubmit={(e) => {
@@ -37,7 +44,7 @@ const SearchBar = () => {
           type="submit"
           className="absolute top-[10px] right-3"
           onClick={() => {
-            setSearchPopUpOpened(false);
+            setSearchDropdownOpened(false);
           }}
         >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
