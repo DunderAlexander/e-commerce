@@ -13,6 +13,8 @@ import { getCart } from "../redux/slices/cartSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 
+//TODO - make everything responsive
+
 const Navbar = () => {
   const { isCartOpen, isUserOpen } = useSelector(
     (state: RootState) => state.utility
