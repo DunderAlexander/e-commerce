@@ -89,6 +89,11 @@ const CartPage = () => {
             <h3 className="text-xl font-medium ">Items:</h3>
             <h3 className="text-xl text-right">{totalQuantity}</h3>
           </div>
+          <div className="flex justify-end">
+            <button className="text-white text-lg font-bold bg-blue-500 p-2 rounded-lg">
+              Buy now!
+            </button>
+          </div>
         </div>
       )}
     </div>
