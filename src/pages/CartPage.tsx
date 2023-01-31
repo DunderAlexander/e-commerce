@@ -19,7 +19,11 @@ const CartPage = () => {
     const input = e.currentTarget.promoCode;
     if (!input.value) return;
     const enteredCode = input.value.toUpperCase().trim();
-    if (enteredCode === "BEBRA" || enteredCode === "LINUSHEK") {
+    if (
+      enteredCode === "PROMO" ||
+      enteredCode === "LINA" ||
+      enteredCode === "DISCOUNT"
+    ) {
       setDiscount(0.2);
       setValidPromo(true);
       setInvalidPromo(false);
