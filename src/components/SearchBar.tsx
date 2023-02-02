@@ -11,7 +11,7 @@ const SearchBar = () => {
   return (
     <div
       ref={containerRef}
-      className="w-full relative"
+      className="w-full relative hidden lg:block"
       onFocus={() => {
         setSearchDropdownOpened(true);
       }}

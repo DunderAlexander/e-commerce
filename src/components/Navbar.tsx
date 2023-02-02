@@ -1,9 +1,13 @@
 import Cart from "./Cart";
 import User from "./User";
 import SearchBar from "./SearchBar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingCart,
+  faUser,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +23,7 @@ const Navbar = () => {
   const { isCartOpen, isUserOpen } = useSelector(
     (state: RootState) => state.utility
   );
-
+  const [isSearchOpened, setIsSearchOpened] = useState(false);
   const cart = useSelector((state: RootState) => state.cart);
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const dispatch = useDispatch();
@@ -60,15 +64,25 @@ const Navbar = () => {
   }, [uid]);
 
   return (
-    <nav className="flex items-center py-4 px-12 relative shadow-md">
-      <div className="flex gap-20 items-center flex-1">
+    <nav className="flex items-center justify-between py-4 px-12 relative shadow-md w-full gap-10">
+      <div className="flex gap-20 items-center lg:flex-1">
         <Link to={"/"}>
           <img src="QuickCart.svg" alt="logo" />
         </Link>
         <SearchBar />
       </div>
 
-      <ul className="flex justify-between gap-[5rem] ml-20">
+      <ul className="flex justify-between lg:gap-20 gap-10">
+        <li className="lg:hidden">
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            size={"2xl"}
+            className="mr-2 cursor-pointer"
+            onClick={() => {
+              setIsSearchOpened(!isSearchOpened);
+            }}
+          />
+        </li>
         <li>
           <FontAwesomeIcon
             icon={faUser}
@@ -79,7 +93,7 @@ const Navbar = () => {
               dispatch(setIsCartOpen(false));
             }}
           />
-          My account
+          <span className="hidden lg:inline">My account</span>
         </li>
         <li>
           <FontAwesomeIcon
@@ -96,7 +110,7 @@ const Navbar = () => {
               {totalQuantity}
             </div>
           )}
-          My cart
+          <span className="hidden lg:inline">My cart</span>
         </li>
       </ul>
       {isCartOpen && <Cart />}

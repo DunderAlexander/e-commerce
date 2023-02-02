@@ -5,3 +5,10 @@
 .slick-next {
   color: black !important;
 }
+
+li {
+  max-width: 100% !important;
+}
+li > svg {
+  max-width: 100%;
+}
