@@ -16,6 +16,7 @@ import { setUser } from "../redux/slices/userAccountSlice";
 import { getCart } from "../redux/slices/cartSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
+import MobileSearch from "./MobileSearch";
 
 //TODO - make everything responsive
 
@@ -64,7 +65,7 @@ const Navbar = () => {
   }, [uid]);
 
   return (
-    <nav className="flex items-center justify-between py-4 px-12 relative shadow-md w-full gap-10">
+    <nav className="flex items-center justify-between py-4 px-12 relative shadow-md w-full lg:gap-10 gap-20">
       <div className="flex gap-20 items-center lg:flex-1">
         <Link to={"/"}>
           <img src="QuickCart.svg" alt="logo" />
@@ -115,6 +116,7 @@ const Navbar = () => {
       </ul>
       {isCartOpen && <Cart />}
       {isUserOpen && <User />}
+      {isSearchOpened && <MobileSearch />}
     </nav>
   );
 };

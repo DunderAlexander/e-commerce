@@ -3,25 +3,42 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import SearchDropdown from "./SearchDropdown";
 
-const SearchBar = () => {
+type SearchBarProps = {
+  onSmallScreen?: boolean;
+};
+
+const SearchBar = ({ onSmallScreen }: SearchBarProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [searchDropdownOpened, setSearchDropdownOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleDropdownOpening = () => {
+    if (onSmallScreen) {
+      return;
+    }
+    setSearchDropdownOpened(true);
+  };
+  const handleDropdownClosing = (e: React.FocusEvent) => {
+    if (onSmallScreen) {
+      return;
+    }
+    if (
+      containerRef.current &&
+      !containerRef.current.contains(e.relatedTarget)
+    ) {
+      setSearchDropdownOpened(false);
+    }
+  };
 
   return (
     <div
       ref={containerRef}
       className="w-full relative hidden lg:block"
       onFocus={() => {
-        setSearchDropdownOpened(true);
+        handleDropdownOpening();
       }}
       onBlur={(e) => {
-        if (
-          containerRef.current &&
-          !containerRef.current.contains(e.relatedTarget)
-        ) {
-          setSearchDropdownOpened(false);
-        }
+        handleDropdownClosing(e);
       }}
     >
       {searchDropdownOpened && <SearchDropdown searchQuery={searchQuery} />}
