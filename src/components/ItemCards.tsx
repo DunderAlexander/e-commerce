@@ -7,7 +7,7 @@ import ItemCard from "./ItemCard";
 const ItemCards = () => {
   const items = useSelector((state: RootState) => state.items);
   return (
-    <section className="mx-12 my-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[12rem] gap-y-12">
+    <section className="mx-12 my-14 grid place-items-center grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {items.map((item) => (
         <ItemCard key={item.id} item={item} />
       ))}
