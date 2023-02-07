@@ -13,7 +13,7 @@ const SearchDropdown = () => {
       )
     : items;
   return filteredItems.length !== 0 ? (
-    <div className="w-full absolute top-10 bg-white border-2 rounded-xl p-4 z-10 flex flex-col gap-4">
+    <div className="bg-white border-2 rounded-xl p-4 z-10 flex flex-col gap-4">
       {filteredItems.slice(0, 6).map((item) => (
         <div key={item.id} className="flex justify-between">
           <div>

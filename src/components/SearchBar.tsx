@@ -49,7 +49,11 @@ const SearchBar = ({ onSmallScreen }: SearchBarProps) => {
         handleDropdownClosing(e);
       }}
     >
-      {searchDropdownOpened && <SearchDropdown />}
+      {searchDropdownOpened && (
+        <div className="absolute w-full top-10">
+          <SearchDropdown />
+        </div>
+      )}
       <form
         className="relative w-full"
         onSubmit={(e) => {
