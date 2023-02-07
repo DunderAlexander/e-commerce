@@ -12,7 +12,7 @@ const Cart = () => {
     return acc + item!.price * curr.quantity;
   }, 0);
   return (
-    <div className="fixed top-20 right-0 w-[26rem] h-[30rem] bg-slate-100 rounded-lg p-4 pb-8 z-10">
+    <div className="fixed top-1/2 right-1/2 w-[80%] lg:h-[60%] h-[90%] lg:w-[30%] translate-x-1/2 -translate-y-1/2 bg-white drop-shadow-2xl rounded-lg p-4 pb-8 z-10">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-medium">My Cart</h2>
         <button
@@ -33,7 +33,12 @@ const Cart = () => {
           </ul>
           <div className="w-full flex justify-between items-center py-2">
             <h3 className="text-lg font-medium">Total: ${totalCost}</h3>
-            <Link to={"/cart"}>
+            <Link
+              to={"/cart"}
+              onClick={() => {
+                dispatch(setIsCartOpen(false));
+              }}
+            >
               <button className="bg-blue-500 text-white p-2 rounded-sm">
                 Proceed
               </button>
