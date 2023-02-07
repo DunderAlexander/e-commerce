@@ -50,7 +50,7 @@ const SearchBar = ({ onSmallScreen }: SearchBarProps) => {
       }}
     >
       {searchDropdownOpened && (
-        <div className="absolute w-full top-10">
+        <div className="absolute w-full top-10 z-50">
           <SearchDropdown />
         </div>
       )}

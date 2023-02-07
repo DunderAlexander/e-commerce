@@ -11,7 +11,11 @@ import {
 import { Link } from "react-router-dom";
 import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsCartOpen, setIsUserOpen } from "../redux/slices/utilitySlice";
+import {
+  setIsCartOpen,
+  setIsSearchOpen,
+  setIsUserOpen,
+} from "../redux/slices/utilitySlice";
 import { setUser } from "../redux/slices/userAccountSlice";
 import { getCart } from "../redux/slices/cartSlice";
 import { onAuthStateChanged } from "firebase/auth";
@@ -21,10 +25,9 @@ import MobileSearch from "./MobileSearch";
 //TODO - make everything responsive
 
 const Navbar = () => {
-  const { isCartOpen, isUserOpen } = useSelector(
+  const { isCartOpen, isUserOpen, isSearchOpen } = useSelector(
     (state: RootState) => state.utility
   );
-  const [isSearchOpened, setIsSearchOpened] = useState(false);
   const cart = useSelector((state: RootState) => state.cart);
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const dispatch = useDispatch();
@@ -80,7 +83,7 @@ const Navbar = () => {
             size={"2xl"}
             className="mr-2 cursor-pointer"
             onClick={() => {
-              setIsSearchOpened(!isSearchOpened);
+              dispatch(setIsSearchOpen(true));
             }}
           />
         </li>
@@ -116,7 +119,7 @@ const Navbar = () => {
       </ul>
       {isCartOpen && <Cart />}
       {isUserOpen && <User />}
-      {isSearchOpened && <MobileSearch />}
+      {isSearchOpen && <MobileSearch />}
     </nav>
   );
 };

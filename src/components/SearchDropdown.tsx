@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { setIsSearchOpen } from "../redux/slices/utilitySlice";
 import { RootState } from "../redux/store";
 
 const SearchDropdown = () => {
@@ -12,12 +13,20 @@ const SearchDropdown = () => {
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : items;
+
+  const dispatch = useDispatch();
+
   return filteredItems.length !== 0 ? (
-    <div className="bg-white border-2 rounded-xl p-4 z-10 flex flex-col gap-4">
+    <div className="bg-white border-2 rounded-xl p-4 flex flex-col gap-4">
       {filteredItems.slice(0, 6).map((item) => (
         <div key={item.id} className="flex justify-between">
           <div>
-            <Link to={`/items/${item.id}`}>
+            <Link
+              to={`/items/${item.id}`}
+              onClick={() => {
+                dispatch(setIsSearchOpen(false));
+              }}
+            >
               <div className="font-medium hover:text-blue-300">{item.name}</div>
             </Link>
             <div className="text-xs text-gray-400">{item.type}</div>
