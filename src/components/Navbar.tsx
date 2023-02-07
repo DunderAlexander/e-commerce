@@ -68,15 +68,15 @@ const Navbar = () => {
   }, [uid]);
 
   return (
-    <nav className="flex items-center justify-between py-4 px-12 relative shadow-md w-full lg:gap-10 gap-20">
+    <nav className="flex items-center justify-between lg:px-12 px-8 py-4 relative shadow-md w-full gap-10">
       <div className="flex gap-20 items-center lg:flex-1">
         <Link to={"/"}>
-          <img src="QuickCart.svg" alt="logo" />
+          <img src="QuickCart.svg" alt="logo" className="min-w-[30px]" />
         </Link>
         <SearchBar />
       </div>
 
-      <ul className="flex justify-between lg:gap-20 gap-10">
+      <ul className="flex justify-between lg:gap-20 gap-5">
         <li className="lg:hidden">
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
