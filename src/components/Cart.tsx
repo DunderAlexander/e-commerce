@@ -25,7 +25,7 @@ const Cart = () => {
       {cart.length === 0 ? (
         <h3>Your cart is empty.</h3>
       ) : (
-        <div className="flex flex-col gap-2 h-full overflow-y-auto">
+        <div className="flex flex-col gap-2 h-full overflow-y-auto scrollbar-hide">
           <ul className="flex flex-col gap-2 pb-3">
             {cart.map((cartItem) => (
               <CartItem key={cartItem.id} {...cartItem} />

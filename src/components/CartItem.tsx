@@ -17,7 +17,7 @@ const CartItem = ({ id, quantity, showCategory }: CartItemProps) => {
   return (
     <>
       {showCategory && <hr />}
-      <div className="flex items-center py-2 justify-between">
+      <div className="flex items-center py-2 justify-between gap-x-1">
         <div className="flex items-center">
           <img
             src={item?.img}
