@@ -1,6 +1,9 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchQuery } from "../redux/slices/utilitySlice";
+import { RootState } from "../redux/store";
 import SearchDropdown from "./SearchDropdown";
 
 type SearchBarProps = {
@@ -10,7 +13,10 @@ type SearchBarProps = {
 const SearchBar = ({ onSmallScreen }: SearchBarProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [searchDropdownOpened, setSearchDropdownOpened] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchQuery = useSelector(
+    (state: RootState) => state.utility.searchQuery
+  );
+  const dispatch = useDispatch();
 
   const handleDropdownOpening = () => {
     if (onSmallScreen) {
@@ -33,7 +39,9 @@ const SearchBar = ({ onSmallScreen }: SearchBarProps) => {
   return (
     <div
       ref={containerRef}
-      className="w-full relative hidden lg:block"
+      className={
+        onSmallScreen ? "w-full relative" : "w-full relative hidden lg:block"
+      }
       onFocus={() => {
         handleDropdownOpening();
       }}
@@ -41,7 +49,7 @@ const SearchBar = ({ onSmallScreen }: SearchBarProps) => {
         handleDropdownClosing(e);
       }}
     >
-      {searchDropdownOpened && <SearchDropdown searchQuery={searchQuery} />}
+      {searchDropdownOpened && <SearchDropdown />}
       <form
         className="relative w-full"
         onSubmit={(e) => {
@@ -54,7 +62,7 @@ const SearchBar = ({ onSmallScreen }: SearchBarProps) => {
           className="border-2 rounded-xl p-2 w-full"
           value={searchQuery}
           onChange={(e) => {
-            setSearchQuery(e.target.value);
+            dispatch(setSearchQuery(e.target.value));
           }}
         />
         <button

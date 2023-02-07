@@ -2,8 +2,11 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../redux/store";
 
-const SearchDropdown = ({ searchQuery }: any) => {
+const SearchDropdown = () => {
   const items = useSelector((state: RootState) => state.items);
+  const searchQuery = useSelector(
+    (state: RootState) => state.utility.searchQuery
+  );
   const filteredItems = searchQuery
     ? items.filter((item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
