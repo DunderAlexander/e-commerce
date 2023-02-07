@@ -1,9 +1,4 @@
 import Slider from "react-slick";
-import {
-  faArrowCircleLeft,
-  faArrowCircleRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Carousel = () => {
   const settings = {
@@ -14,25 +9,23 @@ const Carousel = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 10000,
-    prevArrow: <FontAwesomeIcon icon={faArrowCircleLeft} />,
-    nextArrow: <FontAwesomeIcon icon={faArrowCircleRight} />,
   };
 
   return (
-    <section className="w-[70%] mx-auto mb-16 mt-10">
+    <section className="lg:w-[75%] mx-auto mb-16 mt-10 px-8">
       <Slider {...settings}>
         <div>
           <img
             src="Headphones-For-Streaming-01.jpg"
             alt=""
-            className="h-full w-full bg-cover mx-auto aspect-video"
+            className="h-full w-full bg-cover mx-auto aspect-video rounded-lg"
           />
         </div>
         <div>
           <img
             src="pravin-jadhav-mivi-3.jpg"
             alt=""
-            className="h-full w-full bg-cover mx-auto aspect-video"
+            className="h-full w-full bg-cover mx-auto aspect-video rounded-lg"
           />
         </div>
       </Slider>

@@ -1,10 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.slick-prev,
-.slick-next {
-  color: black !important;
-}
 
 li {
   max-width: 100% !important;
