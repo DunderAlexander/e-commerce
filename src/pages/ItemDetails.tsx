@@ -30,9 +30,9 @@ const ItemDetails = () => {
         className="object-contain max-w-[24rem]"
       />
       <div className="flex flex-col gap-2">
-        <h1 className="font-bold text-lg">${item.price}</h1>
-        <hr />
         <h1 className="font-bold text-lg">{item.name}</h1>
+        <hr />
+        <h1 className="font-bold text-lg">${item.price}</h1>
         <p className="font-light italic text-gray-400">{item.type}</p>
         <h1 className="font-bold text-lg">About the item</h1>
         <p>{item.description}</p>
