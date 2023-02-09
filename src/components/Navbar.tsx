@@ -22,8 +22,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import MobileSearch from "./MobileSearch";
 
-//TODO - make everything responsive
-
 const Navbar = () => {
   const { isCartOpen, isUserOpen, isSearchOpen } = useSelector(
     (state: RootState) => state.utility

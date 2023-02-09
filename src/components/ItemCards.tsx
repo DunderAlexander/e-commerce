@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import ItemCard from "./ItemCard";
 
-//TODO - give admin permission to modify items
+//TODO: give admin permission to modify items
 
 const ItemCards = () => {
   const items = useSelector((state: RootState) => state.items);
