@@ -49,29 +49,6 @@ const ItemDetails = () => {
         </button>
       </div>
     </div>
-    // <div className="grid grid-cols-2 gap-4 p-4">
-    //   <img
-    //     className="w-64 h-64 object-cover rounded-md"
-    //     src={item.img}
-    //     alt={item.name}
-    //   />
-    //   <div className="self-center">
-    //     <h1 className="text-3xl font-medium">{item.name}</h1>
-    //     <p className="text-gray-600">{item.description}</p>
-    //     <h3 className="text-xl font-medium">${item.price}</h3>
-    //     <button
-    //       className={`bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-lg ${
-    //         clickedItem && "opacity-50 cursor-not-allowed hover:bg-indigo-500"
-    //       }`}
-    //       onClick={() => {
-    //         dispatch(addToCart({ item, uid }));
-    //       }}
-    //       disabled={!!clickedItem}
-    //     >
-    //       {clickedItem ? "Added to cart!" : "Add to cart"}
-    //     </button>
-    //   </div>
-    // </div>
   );
 };
 
