@@ -12,7 +12,7 @@ const Cart = () => {
     return acc + item!.price * curr.quantity;
   }, 0);
   return (
-    <div className="fixed top-1/2 right-1/2 w-[80%] lg:h-[60%] h-[90%] lg:w-[30%] translate-x-1/2 -translate-y-1/2 bg-white drop-shadow-2xl rounded-lg p-4 pb-8 z-10">
+    <div className="fixed top-1/2 right-1/2 w-[80%] lg:h-[60%] h-[70%] lg:w-[30%] translate-x-1/2 -translate-y-1/2 bg-white drop-shadow-2xl rounded-lg p-4 pb-8 z-10">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-medium">My Cart</h2>
         <button
