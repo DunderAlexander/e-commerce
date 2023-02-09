@@ -67,7 +67,7 @@ const User = () => {
       </button>
       <form onSubmit={handleSignIn} className="flex flex-col gap-2">
         <input
-          className="p-3 rounded-lg"
+          className="p-3 rounded-lg border border-gray-400"
           type="email"
           placeholder="Email"
           value={email}
@@ -76,7 +76,7 @@ const User = () => {
           }}
         />
         <input
-          className="p-3 rounded-lg"
+          className="p-3 rounded-lg border border-gray-400"
           type="password"
           placeholder="Password"
           value={password}
