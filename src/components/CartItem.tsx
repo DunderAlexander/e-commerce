@@ -3,7 +3,7 @@ import { addToCart, removeFromCart } from "../redux/slices/cartSlice";
 import { AppDispatch, RootState } from "../redux/store";
 
 type CartItemProps = {
-  id: number;
+  id: string;
   quantity: number;
   showCategory?: boolean;
 };

@@ -6,9 +6,8 @@ import { useMemo } from "react";
 
 const ItemDetails = () => {
   const { id } = useParams();
-  const itemId = typeof id === "string" ? parseInt(id) : undefined;
   const item = useSelector((state: RootState) =>
-    state.items.find((i) => i.id === itemId)
+    state.items.find((i) => i.id === id)
   );
   const cart = useSelector((state: RootState) => state.cart);
   const uid = useSelector((state: RootState) => state.userAccount.user?.uid);

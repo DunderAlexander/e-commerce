@@ -21,6 +21,8 @@ import { getCart } from "../redux/slices/cartSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import MobileSearch from "./MobileSearch";
+import { fetchItems } from "../redux/slices/itemsSlice";
+import { AnyAction } from "@reduxjs/toolkit";
 
 const Navbar = () => {
   const { isCartOpen, isUserOpen, isSearchOpen } = useSelector(
@@ -64,6 +66,10 @@ const Navbar = () => {
       dispatch(getCart([]));
     }
   }, [uid]);
+
+  useEffect(() => {
+    dispatch<AnyAction>(fetchItems());
+  }, [dispatch]);
 
   return (
     <nav className="flex items-center justify-between lg:px-12 px-8 py-4 relative shadow-md w-full gap-10">

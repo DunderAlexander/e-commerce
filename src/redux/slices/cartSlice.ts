@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface CartItem {
-  id: number;
+  id: string;
   quantity: number;
 }
 const initialState: CartItem[] = [];
