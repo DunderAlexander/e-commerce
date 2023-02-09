@@ -34,7 +34,7 @@ const User = () => {
 
   if (user) {
     return (
-      <div className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 max-w-60 drop-shadow-2xl bg-white rounded-lg p-4 pb-8 z-10 flex flex-col">
+      <div className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 min-w-[14rem] drop-shadow-2xl bg-white rounded-lg p-4 z-10 flex flex-col">
         <button
           className="absolute right-2 top-0 font-bold"
           onClick={() => {
@@ -43,7 +43,7 @@ const User = () => {
         >
           x
         </button>
-        <h1 className="text-center">
+        <h1 className="text-center mb-2">
           Welcome, <b>{user.displayName}</b>
         </h1>
         <button
