@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../firebase/config";
 import { setError } from "../redux/slices/userAccountSlice";
 import { RootState } from "../redux/store";
+import { setIsUserOpen } from "../redux/slices/utilitySlice";
 
 const User = () => {
   const [email, setEmail] = useState("");
@@ -33,9 +34,17 @@ const User = () => {
 
   if (user) {
     return (
-      <div className="fixed top-20 right-36 w-64 h-64 bg-slate-100 rounded-lg p-4 pb-8 z-10">
-        <h1>
-          Welcome, <b className="text-xs">{user.displayName}</b>
+      <div className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 max-w-60 drop-shadow-2xl bg-white rounded-lg p-4 pb-8 z-10 flex flex-col">
+        <button
+          className="absolute right-2 top-0 font-bold"
+          onClick={() => {
+            dispatch(setIsUserOpen(false));
+          }}
+        >
+          x
+        </button>
+        <h1 className="text-center">
+          Welcome, <b>{user.displayName}</b>
         </h1>
         <button
           className="bg-blue-600 p-2 rounded-lg text-white text-xs"
@@ -47,9 +56,18 @@ const User = () => {
     );
   }
   return (
-    <div className="fixed top-20 right-36 w-64 h-64 bg-slate-100 rounded-lg p-4 pb-8 z-10">
-      <form onSubmit={handleSignIn}>
+    <div className="fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 max-w-60 drop-shadow-2xl bg-white rounded-lg p-8 z-10 flex flex-col gap-2">
+      <button
+        className="absolute right-2 top-0 font-bold"
+        onClick={() => {
+          dispatch(setIsUserOpen(false));
+        }}
+      >
+        x
+      </button>
+      <form onSubmit={handleSignIn} className="flex flex-col gap-2">
         <input
+          className="p-3 rounded-lg"
           type="email"
           placeholder="Email"
           value={email}
@@ -58,6 +76,7 @@ const User = () => {
           }}
         />
         <input
+          className="p-3 rounded-lg"
           type="password"
           placeholder="Password"
           value={password}
@@ -65,7 +84,9 @@ const User = () => {
             setPassword(e.target.value);
           }}
         />
-        <button type="submit">Sign in</button>
+        <button type="submit" className="bg-blue-700 text-white p-2 rounded-lg">
+          Sign in
+        </button>
       </form>
       <button
         className="bg-red-600 text-white p-2 rounded-lg"
