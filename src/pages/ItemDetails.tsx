@@ -5,21 +5,23 @@ import { addToCart } from "../redux/slices/cartSlice";
 import { useMemo } from "react";
 
 const ItemDetails = () => {
+  const cart = useSelector((state: RootState) => state.cart);
+  const uid = useSelector((state: RootState) => state.userAccount.user?.uid);
+  const dispatch = useDispatch();
   const { id } = useParams();
   const item = useSelector((state: RootState) =>
     state.items.find((i) => i.id === id)
   );
-  const cart = useSelector((state: RootState) => state.cart);
-  const uid = useSelector((state: RootState) => state.userAccount.user?.uid);
-  const dispatch = useDispatch();
 
   if (!item) {
-    return <h3 className="text-xl font-medium text-center">Item not found</h3>;
+    return (
+      <h3 className="text-xl font-medium text-center">
+        Item not found or loading...
+      </h3>
+    );
   }
-  const clickedItem = useMemo(
-    () => cart.find((i) => i.id === item.id),
-    [cart, item.id]
-  );
+
+  const clickedItem = cart.find((i) => i.id === item.id);
 
   return (
     <div className="flex flex-col gap-2 p-6">
