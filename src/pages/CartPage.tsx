@@ -5,14 +5,23 @@ import { RootState } from "../redux/store";
 
 const CartPage = () => {
   const { items, cart } = useSelector((state: RootState) => state);
-  const totalCost = cart.reduce((acc, curr) => {
-    const item = items.find((i) => i.id === curr.id);
-    return acc + item!.price * curr.quantity;
-  }, 0);
-  const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
   const [discount, setDiscount] = useState(0);
   const [validPromo, setValidPromo] = useState(false);
   const [invalidPromo, setInvalidPromo] = useState(false);
+
+  if (items.length === 0)
+    return (
+      <h3 className="text-xl font-medium text-center mt-10">
+        Cart is loading...
+      </h3>
+    );
+
+  const totalCost = cart.reduce((acc, curr) => {
+    const item = items.find((i) => i.id === curr.id);
+    console.log(item);
+    return acc + item!.price * curr.quantity;
+  }, 0);
+  const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
