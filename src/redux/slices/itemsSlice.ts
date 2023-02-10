@@ -35,23 +35,16 @@ export const fetchItems = createAsyncThunk("items/fetchItems", async () => {
   return itemsArray;
 });
 
-const initialState = {
-  items: [] as itemsType[],
-  isLoading: false,
-};
+const initialState: itemsType[] = [];
 
 export const itemsSlice = createSlice({
   name: "items",
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchItems.pending, (state) => {
-      state.isLoading = true;
-    });
     builder.addCase(fetchItems.fulfilled, (state, action) => {
-      state.items.length = 0;
-      state.items.push(...action.payload);
-      state.isLoading = false;
+      state.length = 0;
+      state.push(...action.payload);
     });
   },
 });
