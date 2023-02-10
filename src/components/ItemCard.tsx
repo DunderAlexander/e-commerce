@@ -7,7 +7,7 @@ import { AppDispatch, RootState } from "../redux/store";
 
 export type Items = {
   item: {
-    id: number;
+    id: string;
     name: string;
     type: string;
     price: number;
