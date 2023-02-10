@@ -1,4 +1,9 @@
-import { AnyAction, createSlice, Dispatch } from "@reduxjs/toolkit";
+import {
+  AnyAction,
+  createAsyncThunk,
+  createSlice,
+  Dispatch,
+} from "@reduxjs/toolkit";
 import items from "../../util/items";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config";
@@ -14,33 +19,43 @@ type itemsType = {
   img: string;
 };
 
-const initialState: itemsType[] = [];
+export const fetchItems = createAsyncThunk("items/fetchItems", async () => {
+  const querySnapshot = await getDocs(collection(db, "items"));
+  const itemsArray: itemsType[] = [];
+  querySnapshot.forEach((doc) => {
+    itemsArray.push({
+      id: doc.id,
+      name: doc.data().name,
+      type: doc.data().type,
+      price: doc.data().price,
+      description: doc.data().description,
+      img: doc.data().img,
+    });
+  });
+  return itemsArray;
+});
+
+const initialState = {
+  items: [] as itemsType[],
+  isLoading: false,
+};
 
 export const itemsSlice = createSlice({
   name: "items",
   initialState,
-  reducers: {
-    addItem: (state, action) => {
-      state.push(action.payload);
-    },
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(fetchItems.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchItems.fulfilled, (state, action) => {
+      state.items.length = 0;
+      state.items.push(...action.payload);
+      state.isLoading = false;
+    });
   },
 });
 
-export const { addItem } = itemsSlice.actions;
+export const {} = itemsSlice.actions;
 
-export const fetchItems = () => async (dispatch: Dispatch<AnyAction>) => {
-  const querySnapshot = await getDocs(collection(db, "items"));
-  querySnapshot.forEach((doc) => {
-    dispatch(
-      addItem({
-        id: doc.id,
-        name: doc.data().name,
-        type: doc.data().type,
-        price: doc.data().price,
-        description: doc.data().description,
-        img: doc.data().img,
-      })
-    );
-  });
-};
 export default itemsSlice.reducer;

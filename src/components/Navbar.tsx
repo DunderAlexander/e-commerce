@@ -1,7 +1,7 @@
 import Cart from "./Cart";
 import User from "./User";
 import SearchBar from "./SearchBar";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingCart,
@@ -9,7 +9,7 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { RootState } from "../redux/store";
+import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setIsCartOpen,
@@ -22,7 +22,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import MobileSearch from "./MobileSearch";
 import { fetchItems } from "../redux/slices/itemsSlice";
-import { AnyAction } from "@reduxjs/toolkit";
 
 const Navbar = () => {
   const { isCartOpen, isUserOpen, isSearchOpen } = useSelector(
@@ -30,7 +29,7 @@ const Navbar = () => {
   );
   const cart = useSelector((state: RootState) => state.cart);
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const uid = useSelector((state: RootState) => state.userAccount.user?.uid);
 
   useEffect(() => {
@@ -68,8 +67,8 @@ const Navbar = () => {
   }, [uid]);
 
   useEffect(() => {
-    dispatch<AnyAction>(fetchItems());
-  }, [dispatch]);
+    dispatch(fetchItems());
+  }, []);
 
   return (
     <nav className="flex items-center justify-between lg:px-12 px-8 py-4 relative shadow-md w-full gap-10">
