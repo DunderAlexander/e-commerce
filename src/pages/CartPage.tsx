@@ -18,7 +18,6 @@ const CartPage = () => {
 
   const totalCost = cart.reduce((acc, curr) => {
     const item = items.find((i) => i.id === curr.id);
-    console.log(item);
     return acc + item!.price * curr.quantity;
   }, 0);
   const totalQuantity = cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
