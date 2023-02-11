@@ -8,8 +8,6 @@ import items from "../../util/items";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
-//TODO: get items from Firestore
-
 type itemsType = {
   id: string;
   name: string;
