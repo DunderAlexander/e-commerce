@@ -1,10 +1,4 @@
-import {
-  AnyAction,
-  createAsyncThunk,
-  createSlice,
-  Dispatch,
-} from "@reduxjs/toolkit";
-import items from "../../util/items";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
