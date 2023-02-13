@@ -2,7 +2,12 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-const Reviews = () => {
+type ReviewsType = {
+  itemId: string;
+  userId: string | undefined;
+};
+
+const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [hoverIndex, setHoverIndex] = useState(-1);
@@ -24,26 +29,30 @@ const Reviews = () => {
         Reviews
         <span className="font-normal text-sm -right-3 top-0 absolute">0</span>
       </h1>
-      <div className="flex">
-        {[1, 2, 3, 4, 5].map((starNumber) => (
-          <FontAwesomeIcon
-            key={starNumber}
-            icon={faStar}
-            className={`text-gray-400 ${
-              hoverIndex >= starNumber || rating >= starNumber
-                ? "text-yellow-500"
-                : ""
-            } hover:text-yellow-500 cursor-pointer`}
-            onClick={() => setRating(starNumber)}
-            onMouseEnter={() => {
-              setHoverIndex(starNumber);
-            }}
-            onMouseLeave={() => {
-              setHoverIndex(-1);
-            }}
-          />
-        ))}
-      </div>
+      {userId ? (
+        <div className="flex">
+          {[1, 2, 3, 4, 5].map((starNumber) => (
+            <FontAwesomeIcon
+              key={starNumber}
+              icon={faStar}
+              className={`text-gray-400 ${
+                hoverIndex >= starNumber || rating >= starNumber
+                  ? "text-yellow-500"
+                  : ""
+              } hover:text-yellow-500 cursor-pointer`}
+              onClick={() => setRating(starNumber)}
+              onMouseEnter={() => {
+                setHoverIndex(starNumber);
+              }}
+              onMouseLeave={() => {
+                setHoverIndex(-1);
+              }}
+            />
+          ))}
+        </div>
+      ) : (
+        <h1>Login to write your own reviews!</h1>
+      )}
       {showForm && (
         <form className="flex flex-col gap-3">
           <textarea

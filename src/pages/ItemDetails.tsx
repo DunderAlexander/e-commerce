@@ -50,7 +50,7 @@ const ItemDetails = () => {
           {clickedItem ? "Added to cart!" : "Add to cart"}
         </button>
       </div>
-      <Reviews />
+      {id && <Reviews itemId={id} userId={uid} />}
     </div>
   );
 };
