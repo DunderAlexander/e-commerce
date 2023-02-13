@@ -24,10 +24,7 @@ const Reviews = () => {
                 ? "text-yellow-500"
                 : ""
             } hover:text-yellow-500 cursor-pointer`}
-            onClick={(e) => {
-              e.preventDefault();
-              setRating(starNumber);
-            }}
+            onClick={() => setRating(starNumber)}
             onMouseEnter={() => {
               setHoverIndex(starNumber);
             }}
@@ -38,16 +35,17 @@ const Reviews = () => {
         ))}
       </div>
       {showForm && (
-        <form>
+        <form className="flex flex-col gap-3">
           <textarea
             value={review}
             onChange={(e) => setReview(e.target.value)}
-            className="resize-none w-full border border-gray-400 py-2 px-3 rounded"
+            className="max-w-[40rem] h-[7rem] resize-none border border-gray-400 py-2 px-3 rounded"
             placeholder="Write a review..."
           />
           <button
             type="submit"
-            className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded"
+            className="w-32 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded"
+            onClick={(e) => e.preventDefault()}
           >
             Submit
           </button>
