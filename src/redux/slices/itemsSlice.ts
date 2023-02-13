@@ -9,6 +9,13 @@ type itemsType = {
   price: number;
   description: string;
   img: string;
+  reviews?: Reviews[];
+};
+
+type Reviews = {
+  userName: string;
+  rating: number;
+  review: string;
 };
 
 export const fetchItems = createAsyncThunk("items/fetchItems", async () => {
@@ -22,6 +29,7 @@ export const fetchItems = createAsyncThunk("items/fetchItems", async () => {
       price: doc.data().price,
       description: doc.data().description,
       img: doc.data().img,
+      reviews: doc.data().reviews,
     });
   });
   return itemsArray;
