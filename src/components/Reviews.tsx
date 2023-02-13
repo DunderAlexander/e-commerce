@@ -7,6 +7,16 @@ const Reviews = () => {
   const [review, setReview] = useState("");
   const [hoverIndex, setHoverIndex] = useState(-1);
   const [showForm, setShowForm] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  if (submitted)
+    return (
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="font-bold text-xl">
+          Thank you for submitting your review!
+        </h1>
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-2">
@@ -45,7 +55,10 @@ const Reviews = () => {
           <button
             type="submit"
             className="w-32 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded"
-            onClick={(e) => e.preventDefault()}
+            onClick={(e) => {
+              e.preventDefault();
+              setSubmitted(true);
+            }}
           >
             Submit
           </button>
