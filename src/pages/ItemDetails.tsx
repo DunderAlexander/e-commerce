@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { addToCart } from "../redux/slices/cartSlice";
 import { useMemo } from "react";
+import Reviews from "../components/Reviews";
 
 const ItemDetails = () => {
   const cart = useSelector((state: RootState) => state.cart);
@@ -49,6 +50,7 @@ const ItemDetails = () => {
           {clickedItem ? "Added to cart!" : "Add to cart"}
         </button>
       </div>
+      <Reviews />
     </div>
   );
 };
