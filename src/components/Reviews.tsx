@@ -16,6 +16,10 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  // TODO: get the user name from Firebase using uid
+  // TODO: display the reviews
+  // TODO: make sure user can add reviews only once
+
   const handleSubmit = async () => {
     if (!userId) return;
     const itemRef = doc(db, "items", itemId);
