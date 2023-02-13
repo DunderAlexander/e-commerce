@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 type ReviewsType = {
   itemId: string;
@@ -13,6 +15,22 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
   const [hoverIndex, setHoverIndex] = useState(-1);
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!userId) return;
+    const itemRef = doc(db, "items", itemId);
+    await setDoc(
+      itemRef,
+      {
+        reviews: {
+          userId,
+          rating,
+          review,
+        },
+      },
+      { merge: true }
+    );
+  };
 
   if (submitted)
     return (
@@ -66,6 +84,7 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
             className="w-32 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded"
             onClick={(e) => {
               e.preventDefault();
+              handleSubmit();
               setSubmitted(true);
             }}
           >
