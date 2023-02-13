@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { doc, setDoc } from "firebase/firestore";
+import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 type ReviewsType = {
   itemId: string;
@@ -15,6 +17,9 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
   const [hoverIndex, setHoverIndex] = useState(-1);
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const userName = useSelector(
+    (state: RootState) => state.userAccount.user?.displayName
+  );
 
   // TODO: get the user name from Firebase using uid
   // TODO: display the reviews
@@ -23,17 +28,14 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
   const handleSubmit = async () => {
     if (!userId) return;
     const itemRef = doc(db, "items", itemId);
-    await setDoc(
-      itemRef,
-      {
-        reviews: {
-          userId,
-          rating,
-          review,
-        },
-      },
-      { merge: true }
-    );
+    await updateDoc(itemRef, {
+      reviews: arrayUnion({
+        userId,
+        userName,
+        rating,
+        review,
+      }),
+    });
   };
 
   if (submitted)
