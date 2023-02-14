@@ -30,7 +30,6 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
     const itemRef = doc(db, "items", itemId);
     await updateDoc(itemRef, {
       reviews: arrayUnion({
-        userId,
         userName,
         rating,
         review,
