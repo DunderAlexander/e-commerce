@@ -13,6 +13,7 @@ type itemsType = {
 };
 
 export type SingleReview = {
+  userId: string;
   userName: string;
   rating: number;
   review: string;

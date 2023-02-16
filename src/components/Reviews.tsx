@@ -24,11 +24,18 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
     (state: RootState) => state.userAccount.user?.displayName
   );
 
-  // TODO: display the reviews
-  // TODO: make sure user can add reviews only once
-
   const handleSubmit = async () => {
     if (!userId) return;
+    if (reviews) {
+      const userHasReview = reviews.some((review) => review.userId === userId);
+      if (userHasReview) {
+        alert("You have already left a review for this item.");
+        setShowForm(false);
+        setRating(0);
+        setReview("");
+        return;
+      }
+    }
     const itemRef = doc(db, "items", itemId);
     await updateDoc(itemRef, {
       reviews: arrayUnion({
@@ -38,6 +45,7 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
         userName,
       }),
     });
+    setSubmitted(true);
   };
 
   if (submitted)
@@ -81,13 +89,18 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
       ) : (
         <h1>Login to write your own reviews!</h1>
       )}
-      {reviews && (
-        <>
-          {reviews.map((review, idx) => (
-            <Review key={idx} content={review} />
-          ))}
-        </>
-      )}{" "}
+      {!showForm && rating > 0 && (
+        <div className="self-start">
+          <p className="mt-4 text-center">
+            <button
+              className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded"
+              onClick={() => setShowForm(true)}
+            >
+              Leave a Review
+            </button>
+          </p>
+        </div>
+      )}
       {showForm && (
         <form className="flex flex-col gap-3">
           <textarea
@@ -102,23 +115,19 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
             onClick={(e) => {
               e.preventDefault();
               handleSubmit();
-              setSubmitted(true);
             }}
           >
             Submit
           </button>
         </form>
       )}
-      {!showForm && rating > 0 && (
-        <p className="mt-4 text-center">
-          <button
-            className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded"
-            onClick={() => setShowForm(true)}
-          >
-            Leave a Review
-          </button>
-        </p>
-      )}
+      {reviews && (
+        <>
+          {reviews.map((review, idx) => (
+            <Review key={idx} content={review} />
+          ))}
+        </>
+      )}{" "}
     </div>
   );
 };
