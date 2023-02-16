@@ -5,13 +5,16 @@ import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { SingleReview } from "../redux/slices/itemsSlice";
+import Review from "./Review";
 
 type ReviewsType = {
   itemId: string;
   userId: string | undefined;
+  reviews: SingleReview[] | undefined;
 };
 
-const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
+const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [hoverIndex, setHoverIndex] = useState(-1);
@@ -21,7 +24,6 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
     (state: RootState) => state.userAccount.user?.displayName
   );
 
-  // TODO: get the user name from Firebase using uid
   // TODO: display the reviews
   // TODO: make sure user can add reviews only once
 
@@ -30,9 +32,10 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
     const itemRef = doc(db, "items", itemId);
     await updateDoc(itemRef, {
       reviews: arrayUnion({
-        userName,
+        userId,
         rating,
         review,
+        userName,
       }),
     });
   };
@@ -50,7 +53,9 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
     <div className="flex flex-col gap-2">
       <h1 className="font-bold text-3xl relative w-fit">
         Reviews
-        <span className="font-normal text-sm -right-3 top-0 absolute">0</span>
+        <span className="font-normal text-sm -right-3 top-0 absolute">
+          {reviews ? reviews.length : "0"}
+        </span>
       </h1>
       {userId ? (
         <div className="flex">
@@ -76,6 +81,13 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId }) => {
       ) : (
         <h1>Login to write your own reviews!</h1>
       )}
+      {reviews && (
+        <>
+          {reviews.map((review, idx) => (
+            <Review key={idx} content={review} />
+          ))}
+        </>
+      )}{" "}
       {showForm && (
         <form className="flex flex-col gap-3">
           <textarea

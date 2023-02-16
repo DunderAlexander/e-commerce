@@ -9,10 +9,10 @@ type itemsType = {
   price: number;
   description: string;
   img: string;
-  reviews?: Reviews[];
+  reviews?: SingleReview[];
 };
 
-type Reviews = {
+export type SingleReview = {
   userName: string;
   rating: number;
   review: string;

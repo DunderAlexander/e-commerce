@@ -13,6 +13,7 @@ const ItemDetails = () => {
   const item = useSelector((state: RootState) =>
     state.items.find((i) => i.id === id)
   );
+  const reviews = item?.reviews;
 
   if (!item) {
     return (
@@ -50,7 +51,7 @@ const ItemDetails = () => {
           {clickedItem ? "Added to cart!" : "Add to cart"}
         </button>
       </div>
-      {id && <Reviews itemId={id} userId={uid} />}
+      {id && <Reviews itemId={id} userId={uid} reviews={reviews} />}
     </div>
   );
 };
