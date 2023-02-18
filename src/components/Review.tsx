@@ -9,12 +9,14 @@ type ReviewType = {
 const Review: React.FC<ReviewType> = ({ content }) => {
   const { userName, rating, review } = content;
 
-  const goldenStars = Array(rating).fill(
-    <FontAwesomeIcon key={rating} icon={faStar} color="#ffc107" />
-  );
-  const grayStars = Array(5 - rating).fill(
-    <FontAwesomeIcon key={5 - rating} icon={faStar} color="#c4c4c4" />
-  );
+  const goldenStars = Array(rating)
+    .fill(null)
+    .map((_, i) => <FontAwesomeIcon key={i} icon={faStar} color="#ffc107" />);
+  const grayStars = Array(5 - rating)
+    .fill(null)
+    .map((_, i) => (
+      <FontAwesomeIcon key={i + rating} icon={faStar} color="#c4c4c4" />
+    ));
 
   return (
     <div className="bg-white p-4 shadow-md rounded-lg max-w-xl">

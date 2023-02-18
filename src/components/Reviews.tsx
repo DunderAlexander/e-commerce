@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -11,7 +11,7 @@ import Review from "./Review";
 type ReviewsType = {
   itemId: string;
   userId: string | undefined;
-  reviews: SingleReview[] | undefined;
+  reviews: { [uid: string]: SingleReview };
 };
 
 const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
@@ -26,24 +26,23 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
 
   const handleSubmit = async () => {
     if (!userId) return;
-    if (reviews) {
-      const userHasReview = reviews.some((review) => review.userId === userId);
-      if (userHasReview) {
-        alert("You have already left a review for this item.");
-        setShowForm(false);
-        setRating(0);
-        setReview("");
-        return;
-      }
-    }
     const itemRef = doc(db, "items", itemId);
+    const hasReview = reviews && reviews[userId];
+    if (hasReview) {
+      alert("You have already left a review for this item.");
+      setShowForm(false);
+      setRating(0);
+      setReview("");
+      return;
+    }
+    const reviewData = {
+      rating,
+      review,
+      userName,
+    };
+    const reviewPath = `reviews.${userId}`;
     await updateDoc(itemRef, {
-      reviews: arrayUnion({
-        userId,
-        rating,
-        review,
-        userName,
-      }),
+      [reviewPath]: reviewData,
     });
     setSubmitted(true);
   };
@@ -62,7 +61,7 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
       <h1 className="font-bold text-3xl relative w-fit">
         Reviews
         <span className="font-normal text-sm -right-3 top-0 absolute">
-          {reviews ? reviews.length : "0"}
+          {reviews ? Object.keys(reviews).length : "0"}
         </span>
       </h1>
       {userId ? (
@@ -123,8 +122,8 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
       )}
       {reviews && (
         <>
-          {reviews.map((review, idx) => (
-            <Review key={idx} content={review} />
+          {Object.entries(reviews).map(([uid, review]) => (
+            <Review key={uid} content={{ ...review }} />
           ))}
         </>
       )}{" "}
