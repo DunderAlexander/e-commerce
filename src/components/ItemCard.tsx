@@ -53,7 +53,7 @@ const ItemCard: React.FC<Items> = ({ item }) => {
           {clickedItem ? "Added to cart!" : "Add to cart"}
         </button>
       </div>
-      <Link to={`/items/${item.id}`} className="w-fit block">
+      <Link to={`${item.id}`} className="w-fit block">
         <h4 className="text-lg font-medium mt-2 w-fit hover:text-indigo-600">
           {item.name}
         </h4>

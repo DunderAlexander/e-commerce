@@ -22,7 +22,7 @@ const SearchDropdown = () => {
         <div key={item.id} className="flex justify-between">
           <div>
             <Link
-              to={`/items/${item.id}`}
+              to={`${item.id}`}
               onClick={() => {
                 dispatch(setIsSearchOpen(false));
               }}
