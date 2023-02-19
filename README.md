@@ -2,6 +2,10 @@
 
 Welcome to QuickCart, an e-commerce app built with Vite, React, react-router-dom, Redux Toolkit, Tailwind, and Firebase.
 
+## Live Demo
+
+Check out the live demo of QuickCart at https://e-commerce-quickcart.netlify.app/.
+
 ## Features
 
 - Carousel with ads on main page
