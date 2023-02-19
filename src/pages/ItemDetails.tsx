@@ -22,6 +22,13 @@ const ItemDetails = () => {
       </h3>
     );
   }
+  if (!reviews) {
+    return (
+      <h3 className="text-xl font-medium text-center">
+        Item not found or loading...
+      </h3>
+    );
+  }
 
   const clickedItem = cart.find((i) => i.id === item.id);
 
