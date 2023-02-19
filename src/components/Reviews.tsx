@@ -74,7 +74,7 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
       <h1 className="font-bold text-3xl relative w-fit">
         Reviews
         <span className="font-normal text-sm -right-3 top-0 absolute">
-          {reviews ? Object.keys(reviews).length : "0"}
+          {allReviews ? Object.keys(allReviews).length : "0"}
         </span>
       </h1>
       {userId ? (
