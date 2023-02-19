@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { addToCart } from "../redux/slices/cartSlice";
-import { useMemo } from "react";
 import Reviews from "../components/Reviews";
 
 const ItemDetails = () => {
