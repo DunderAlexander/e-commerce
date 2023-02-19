@@ -45,6 +45,12 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
       [reviewPath]: reviewData,
     });
     setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setShowForm(false);
+      setRating(0);
+      setReview("");
+    }, 3000);
   };
 
   if (submitted)
