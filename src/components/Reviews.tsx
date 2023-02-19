@@ -20,14 +20,16 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
   const [hoverIndex, setHoverIndex] = useState(-1);
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [allReviews, setAllReviews] = useState(reviews);
   const userName = useSelector(
     (state: RootState) => state.userAccount.user?.displayName
   );
 
   const handleSubmit = async () => {
     if (!userId) return;
+    if (!userName) return;
     const itemRef = doc(db, "items", itemId);
-    const hasReview = reviews && reviews[userId];
+    const hasReview = allReviews && allReviews[userId];
     if (hasReview) {
       alert("You have already left a review for this item.");
       setShowForm(false);
@@ -40,6 +42,11 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
       review,
       userName,
     };
+    const newRevies = {
+      ...allReviews,
+      [userId]: reviewData,
+    };
+    setAllReviews(newRevies);
     const reviewPath = `reviews.${userId}`;
     await updateDoc(itemRef, {
       [reviewPath]: reviewData,
@@ -126,9 +133,9 @@ const Reviews: React.FC<ReviewsType> = ({ itemId, userId, reviews }) => {
           </button>
         </form>
       )}
-      {reviews && (
+      {allReviews && (
         <>
-          {Object.entries(reviews).map(([uid, review]) => (
+          {Object.entries(allReviews).map(([uid, review]) => (
             <Review key={uid} content={{ ...review }} />
           ))}
         </>
