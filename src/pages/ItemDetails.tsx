@@ -13,7 +13,6 @@ const ItemDetails = () => {
   const item = useSelector((state: RootState) =>
     state.items.find((i) => i.id === id)
   );
-  const reviews = item?.reviews;
 
   if (!item) {
     return (
@@ -22,14 +21,8 @@ const ItemDetails = () => {
       </h3>
     );
   }
-  if (!reviews) {
-    return (
-      <h3 className="text-xl font-medium text-center">
-        Item not found or loading...
-      </h3>
-    );
-  }
 
+  const reviews = item.reviews;
   const clickedItem = cart.find((i) => i.id === item.id);
 
   return (

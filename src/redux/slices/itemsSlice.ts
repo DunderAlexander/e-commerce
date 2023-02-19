@@ -9,7 +9,7 @@ type itemsType = {
   price: number;
   description: string;
   img: string;
-  reviews?: { [uid: string]: SingleReview };
+  reviews: { [uid: string]: SingleReview };
 };
 
 export type SingleReview = {
